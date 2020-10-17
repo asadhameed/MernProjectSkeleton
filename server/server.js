@@ -21,7 +21,9 @@ mongoose
     useCreateIndex: true,
   })
   .then(() => console.log(`Connect with ${config.mongoUri}`));
-app.listen(config.port, function onStart(err) {
+const server = app.listen(config.port, function onStart(err) {
   if (err) console.log(err);
   console.info("Server start on port %s", config.port);
 });
+
+export default server;
