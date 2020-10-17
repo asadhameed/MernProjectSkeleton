@@ -6,8 +6,7 @@ export default () => {
         <title> Project Setup </title>
     </head>
     <body>
-        <div id="root"></div>
-        <script type="text/javascript" src="/dist/bundle.js"></script>
+        <div id="root">hello world</div> 
     </body>
     </html>
     `;

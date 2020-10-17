@@ -1,18 +1,20 @@
-import express from "express";
-import path from "path";
-import devBundle from "./devBundle";
-import template from "../template";
-const CURRENT_WORKING_DIR = process.cwd();
-const app = express();
+import mongoose from "mongoose";
+import app from "./express";
+import "express-async-errors";
+import winston from "winston";
+import config from "../config";
 
-devBundle.compile(app);
-
-app.use("/dist", express.static(path.join(CURRENT_WORKING_DIR, "dist")));
-app.get("/", (req, res) => {
-  res.send(template());
-});
-let port = process.env.PORT || 3000;
-app.listen(port, function onStart(err) {
+mongoose
+  .connect(config.mongoUri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  })
+  .then(() => console.log(`Connect with ${config.mongoUri}`))
+  .catch((err) =>
+    console.log(` Unable to connect with ${config.mongoUri} and error `, err)
+  );
+app.listen(config.port, function onStart(err) {
   if (err) console.log(err);
-  console.info("Server start on port %s", port);
+  console.info("Server start on port %s", config.port);
 });
