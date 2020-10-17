@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import app from "./express";
-import "express-async-errors";
 import winston from "winston";
 import config from "../config";
 
@@ -14,16 +13,16 @@ process.on("unhandledRejection", (ex) => {
 });
 
 winston.add(new winston.transports.File({ filename: "logs.log" }));
+
 mongoose
-  .connect(config.mongoUri, {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
   })
-  .then(() => console.log(`Connect with ${config.mongoUri}`));
-const server = app.listen(config.port, function onStart(err) {
-  if (err) console.log(err);
-  console.info("Server start on port %s", config.port);
-});
-
+  .then(() => winston.info(`Connect with ${process.env.MONGODB_URI}`))
+  .catch((err) => winston.error(err));
+const server = app.listen(config.port, () =>
+  winston.info(`Connect the application on ${config.port}`)
+);
 export default server;
