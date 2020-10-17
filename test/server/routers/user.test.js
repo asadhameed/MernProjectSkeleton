@@ -1,10 +1,9 @@
 const request = require("supertest");
-import server from "../../../server/server";
+let server;
 
 describe("User Router", () => {
   beforeEach(async () => {
-    // server = await require("../../../server/server");
-    //  import server from "../../../server/server";
+    server = await require("../../../server/server");
   });
   afterEach(async () => {
     await server.close();
