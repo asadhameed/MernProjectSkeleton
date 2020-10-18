@@ -13,15 +13,18 @@ const {
 const userRouter = Express.Router();
 
 userRouter
-  .use([
-    username,
-    email,
-    passwordForRegistration,
-    passwordConfirmation,
-    getValidatorErrors,
-  ])
+
   .route("/")
   .get(userController.userList)
-  .post(userController.createUser);
+  .post(
+    [
+      username,
+      email,
+      passwordForRegistration,
+      passwordConfirmation,
+      getValidatorErrors,
+    ],
+    userController.createUser
+  );
 
 export default userRouter;
