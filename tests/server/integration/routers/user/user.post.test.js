@@ -1,10 +1,12 @@
 const request = require("supertest");
-const { default: userModel } = require("../../../../server/models/user.model");
+const {
+  default: userModel,
+} = require("../../../../../server/models/user.model");
 let server;
 
 describe("User Router", () => {
   beforeEach(async () => {
-    server = require("../../../../server/server").default;
+    server = require("../../../../../server/server").default;
   });
   afterEach(async () => {
     await server.close();

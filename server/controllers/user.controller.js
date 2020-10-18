@@ -4,8 +4,9 @@ import _ from "lodash";
 
 const { User } = userModel;
 
-const userList = (req, res) => {
-  res.send("i change the method");
+const userList = async (req, res) => {
+  const user = await User.find().select("name email create update");
+  res.send(user);
 };
 
 const createUser = async (req, res) => {
