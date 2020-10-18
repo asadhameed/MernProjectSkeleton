@@ -71,6 +71,27 @@ const UserValidation = {
     .trim()
     .isLength({ min: 3, max: 20 })
     .withMessage("Name should 3 to 20 characters"),
+  email: check("email")
+    .trim()
+    .isEmail()
+    .normalizeEmail()
+    .withMessage("Email is invalid")
+    .custom(async (email) => {
+      const user = await User.findOne({ email });
+      if (user) throw new Error("User already exist");
+      return true;
+    }),
+  passwordForRegistration: check("password")
+    .trim()
+    .isLength({ min: 6 })
+    .withMessage("Password should not less then 6 characters"),
+  passwordConfirmation: check("passwordConfirmation").custom(
+    (value, { req }) => {
+      if (value !== req.body.password)
+        throw new Error("Password confirmation does not match password");
+      return true;
+    }
+  ),
 };
 
 export default { User, UserValidation };
