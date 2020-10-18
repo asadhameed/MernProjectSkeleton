@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import crypto from "crypto";
+import expressValidator, { check } from "express-validator";
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -63,4 +64,13 @@ UserSchema.path("hash_password").validate(function (v) {
     this.invalidate("Password", "Password is required");
 }, null);
 
-export default mongoose.model("User", UserSchema);
+const User = mongoose.model("User", UserSchema);
+
+const UserValidation = {
+  username: check("name")
+    .trim()
+    .isLength({ min: 3, max: 20 })
+    .withMessage("Name should 3 to 20 characters"),
+};
+
+export default { User, UserValidation };

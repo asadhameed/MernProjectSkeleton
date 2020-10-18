@@ -4,9 +4,10 @@ import cookieParser from "cookie-parser";
 import compression from "compression";
 import helmet from "helmet";
 import cors from "cors";
+
 import template from "../template";
-import User from "./models/user.model";
-import userRouter from "./routers/user.router";
+import routersApp from "./routers/combineRouters";
+
 const app = express();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,5 +20,5 @@ app.get("/", async (req, res) => {
   console.log("come here");
   res.send(template());
 });
-app.use("/api", userRouter);
+app.use("/", routersApp);
 export default app;
