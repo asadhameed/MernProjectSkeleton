@@ -30,7 +30,6 @@ describe("Get Methods", () => {
       const res = await exec();
       expect(res.status).toBe(200);
       expect(res.body.length).toBe(1);
-      console.log(res.body);
       expect(Object.keys(res.body[0])).toEqual(
         expect.arrayContaining(["email", "name", "create"])
       );

@@ -8,7 +8,7 @@ const signin = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await userModel.User.findOne({ email });
-  if (!user && !user.authentication(password))
+  if (!user || !user.authentication(password))
     return res.status(401).json({ error: "Email and password is invalid" });
   const token = await user.createToken();
   winston.info(`FileName:auth.controller--->  token create for ${email} `);
