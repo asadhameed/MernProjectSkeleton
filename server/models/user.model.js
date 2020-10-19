@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 import crypto from "crypto";
+import jwt from "jsonwebtoken";
 import expressValidator, { check } from "express-validator";
+import config from "../../config";
+
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -37,6 +40,9 @@ UserSchema.virtual("password")
   });
 
 UserSchema.methods = {
+  createToken: function () {
+    return jwt.sign({ email: this.email, _id: this._id }, config.jwtSecret);
+  },
   authentication: function (plainPassword) {
     return this.encryptPassword(plainPassword) === this.hash_password;
   },
@@ -92,6 +98,14 @@ const UserValidation = {
       return true;
     }
   ),
+  requiredEmail: check("email")
+    .isEmail()
+    .normalizeEmail()
+    .withMessage("Required valid Email"),
+  requiredPassword: check("password")
+    .trim()
+    .notEmpty()
+    .withMessage("Password is required"),
 };
 
 export default { User, UserValidation };
