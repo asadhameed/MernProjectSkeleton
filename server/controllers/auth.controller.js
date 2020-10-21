@@ -1,5 +1,7 @@
 import winston from "winston";
+import expressJwt from "express-jwt";
 import userModel from "../models/user.model";
+import config from "../../config";
 
 const signin = async (req, res) => {
   winston.info(
@@ -27,4 +29,18 @@ const signout = (req, res) => {
     message: "Sign out",
   });
 };
-export default { signin, signout };
+
+const requireSignin = expressJwt({
+  secret: config.jwtSecret,
+  userProperty: "auth",
+  algorithms: ["HS256"],
+});
+
+const hasAuthorization = (req, res, next) => {
+  const authorized = req.profile && req.auth && req.profile._id == req.auth._id;
+  console.log(authorized);
+  if (!authorized)
+    return res.status(403).json({ error: "User is not authorized" });
+  next();
+};
+export default { signin, signout, requireSignin, hasAuthorization };
