@@ -8,8 +8,10 @@ import winston from "winston";
 
 import template from "../template";
 import routersApp from "./routers/combineRouters";
+import devBundle from "./devBundle";
 
 const app = express();
+devBundle.compile(app);
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -18,7 +20,6 @@ app.use(helmet());
 app.use(cors());
 
 app.get("/", async (req, res) => {
-  console.log("come here");
   res.send(template());
 });
 app.use("/", routersApp);
