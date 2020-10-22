@@ -50,7 +50,9 @@ const update = async (req, res) => {
   winston.info(
     `FileName:user.controller---> ${req.profile._id} want to update`
   );
-  const updatedUser = await User.findByIdAndUpdate(req.profile._id, req.body, {
+  const user = req.body;
+  user.update = Date.now();
+  const updatedUser = await User.findByIdAndUpdate(req.profile._id, user, {
     new: true,
   });
   winston.info(
