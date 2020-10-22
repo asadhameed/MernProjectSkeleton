@@ -48,7 +48,7 @@ describe("Auth Router ", () => {
       const res = await exec();
       expect(res.status).toBe(401);
     });
-    describe("Register A user and then then test", () => {
+    describe("Register A user and then test", () => {
       beforeEach(async () => {
         await createUser();
       });

@@ -1,10 +1,13 @@
 import winston from "winston";
+import _ from "lodash";
+import mongoose from "mongoose";
+
 import userModel from "../models/user.model";
-import _, { extend } from "lodash";
 
 const { User } = userModel;
 
 const userList = async (req, res) => {
+  winston.info(`FileName:user.controller---> ${req.body} want to register`);
   const user = await User.find().select("name email create update");
   res.send(user);
 };
@@ -27,6 +30,8 @@ const createUser = async (req, res) => {
 };
 
 const userByID = async (req, res, next, id) => {
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(400).json({ error: "Id is invalid" });
   winston.info(
     `FileName:user.controller---> ${id} want to read data from database`
   );
