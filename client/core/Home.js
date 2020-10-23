@@ -37,7 +37,6 @@ export default function Home() {
         image={unicornbikeImg}
         title="Unicorn Bicycle"
       />
-
       <CardContent>
         <Typography variant="body2" component="p">
           Welcome to the Social Media home page.

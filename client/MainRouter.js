@@ -1,14 +1,14 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./core/Home";
+import SignUp from "./user/signup";
 
 const MainRouter = () => {
   return (
-    <div>
-      <Switch>
-        <Route exact path="/" component={Home} />
-      </Switch>
-    </div>
+    <Switch>
+      <Route path="/" component={Home} />
+      <Route path="/signup" component={SignUp} />
+    </Switch>
   );
 };
 

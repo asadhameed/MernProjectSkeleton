@@ -19,10 +19,11 @@ app.use(compression());
 app.use(helmet());
 app.use(cors());
 
-app.get("/", async (req, res) => {
+app.use("/", routersApp);
+
+app.get("*", async (req, res) => {
   res.send(template());
 });
-app.use("/", routersApp);
 
 app.use((err, req, res, next) => {
   if (err.name === "UnauthorizedError")
