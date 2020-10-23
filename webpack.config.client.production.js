@@ -17,6 +17,10 @@ const config = {
         exclude: /node_modules/,
         use: ["babel-loader"],
       },
+      {
+        test: /.(png|woff(2)?|eot|ttf|svg|gif|jpe?g)(\?[a-z0-9=\.]+)?$/,
+        use: "file-loader",
+      },
     ],
   },
 };

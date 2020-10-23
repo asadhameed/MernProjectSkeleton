@@ -14,6 +14,8 @@
   "license": "ISC",
   "dependencies": {
     "@hot-loader/react-dom": "^17.0.0-rc.2",
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
@@ -30,6 +32,7 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-hot-loader": "^4.13.0",
+    "react-router-dom": "^5.2.0",
     "winston": "^3.3.3"
   },
   "devDependencies": {
@@ -37,6 +40,7 @@
     "@babel/preset-env": "^7.12.0",
     "@babel/preset-react": "^7.10.4",
     "babel-loader": "^8.1.0",
+    "file-loader": "^6.1.1",
     "jest": "^26.5.3",
     "nodemon": "^2.0.5",
     "supertest": "^5.0.0",

@@ -23,6 +23,19 @@ const config = {
         exclude: /node_modules/,
         use: ["babel-loader"],
       },
+      {
+        test: /.(png|woff(2)?|eot|ttf|svg|gif|jpe?g)(\?[a-z0-9=\.]+)?$/,
+        use: "file-loader",
+      },
+      // {
+      //   // test: /\.(ttf|eot|svg|gif|jpg|png)(\?[\s\S]+)?$/,
+      //   test: /\.(png|jpe?g|gif)$/i,
+      //   use: [
+      //     {
+      //       loader: "file-loader",
+      //     },
+      //   ],
+      // },
     ],
   },
   plugins: [
