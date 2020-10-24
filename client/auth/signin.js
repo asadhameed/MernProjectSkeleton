@@ -10,13 +10,16 @@ import {
 } from "@material-ui/core";
 import useStyles from "../css/components.class";
 import { signIn } from "./auth.api";
+import auth from "./auth.helper";
+import { Redirect } from "react-router-dom";
 //import "../css/components.css";
-export default function () {
+export default function (props) {
   const classes = useStyles();
   const [values, setValues] = useState({
     email: "",
     password: "",
     error: "",
+    redirectToRef: false,
   });
 
   const handelChange = (event) => {
@@ -36,10 +39,20 @@ export default function () {
         setValues({ ...values, error: "User input is invalid" });
       else setValues({ ...values, error: data.error });
     } else {
-      console.log(data);
-      setValues({ ...values, error: "sing in" });
+      auth.authenticate(data, () => {
+        setValues({ ...values, error: "", redirectToRef: true });
+      });
     }
   };
+  const { from } = props.location.state || {
+    from: {
+      pathname: "/",
+    },
+  };
+  if (values.redirectToRef) {
+    return <Redirect to={from}></Redirect>;
+  }
+
   return (
     <Card className={classes.card}>
       <CardContent>
