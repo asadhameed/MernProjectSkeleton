@@ -35,7 +35,10 @@ export default function () {
       if (data.error.errors)
         setValues({ ...values, error: "User input is invalid" });
       else setValues({ ...values, error: data.error });
-    } else setValues({ ...values, error: "sing in" });
+    } else {
+      console.log(data);
+      setValues({ ...values, error: "sing in" });
+    }
   };
   return (
     <Card className={classes.card}>
