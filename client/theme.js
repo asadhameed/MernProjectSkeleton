@@ -16,6 +16,7 @@ const theme = createMuiTheme({
       dark: "#c60055",
       contrastText: "#000",
     },
+    openTitle: "#3f4771",
     type: "light",
   },
 });

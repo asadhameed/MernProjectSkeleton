@@ -1,9 +1,17 @@
 import Axios from "axios";
 
 const signIn = async (user) => {
-  Axios.post("/auth/signin", user)
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err));
+  let data;
+  await Axios.post("/auth/signin", user)
+    .then((res) => {
+      data = res;
+    })
+    .catch((err) => {
+      if (err.response) data = err.response;
+      else data = err;
+    });
+
+  return data;
 };
 
 const signOut = async () => {
